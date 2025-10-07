@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTPS} off
+    RewriteCond %{THE_REQUEST} !/loadbalancer.html [NC]
+    RewriteCond %{THE_REQUEST} !/ping.php [NC]
+    RewriteCond %{THE_REQUEST} !/lojas.php [NC]
+    RewriteCond %{THE_REQUEST} !/modagendadortarefas.php [NC]
+    RewriteCond %{THE_REQUEST} !/clientes.php [NC]
+    RewriteCond %{THE_REQUEST} !/arquivobancario.php [NC]
+    RewriteCond %{THE_REQUEST} !/programas.php [NC]
+    RewriteCond %{THE_REQUEST} !/digitalizar.php [NC]
+    RewriteCond %{THE_REQUEST} !/apimobile.php [NC]
+    RewriteCond %{THE_REQUEST} !/apimobilewl.php [NC]
+    RewriteCond %{THE_REQUEST} !/server-status [NC]
+    RewriteCond %{THE_REQUEST} !/sendwhatsapp [NC]
+    RewriteCond %{HTTP_HOST} !^tef.ocrediario.com.br$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+
+    RewriteBase /api/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ api.php [QSA,L]
+</IfModule>
